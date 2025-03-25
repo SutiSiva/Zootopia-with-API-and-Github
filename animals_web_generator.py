@@ -10,7 +10,7 @@ def generate_website(animal_name, animals_data):
 
         if animals_data:  # If animals were found
             for animal in animals_data:
-                file.write(f"<p>{animal['name']} - {animal['description']}</p>")
+                file.write(f"<p>{animal['name']} - </p>")
         else:
             file.write(f"<h2>The animal '{animal_name}' doesn't exist.</h2>")
 

@@ -11,8 +11,8 @@ def fetch_data(animal_name):
     Fetches the animals data for the animal 'animal_name'.
     Returns: a list of animals, each animal is a dictionary.
     """
-    url = f"https://api.api-ninja.com/v1/animals/{animal_name}"
-    headers = {"Authorization": f"Bearer {API_KEY}"}
+    url = f"https://api.api-ninjas.com/v1/animals?name={animal_name}"
+    headers = {"X-Api-Key": f"{API_KEY}"}
 
     response = requests.get(url, headers=headers)
 
