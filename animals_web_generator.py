@@ -21,18 +21,22 @@ def generate_website(animal_name, animals_data):
         contents = file.read()
 
     #2 platzhalter string ersetzen durch gefundene Tiere /API output
+    #dict, leer , none
     html_content = ""
-    if animals_data:  # If animals were found
-        for animal in animals_data:
-            html_content += '<li class="cards__item">\n'
-            html_content += f'<div class="card__title">{animal["name"]}</div>\n'
-            html_content += '<p class="card__text">\n'
-            html_content += f'<strong>Diet:</strong> {animal["characteristics"].get("diet", "N/A")}<br/>\n'
-            html_content += f'<strong>Location:</strong> {", ".join(animal["locations"])}<br/>\n'
-            html_content += f'<strong>Type:</strong> {animal["characteristics"].get("type", "N/A")}<br/>\n'
-            html_content += '</p></li>\n'
+    if animals_data is None:
+        html_content = f"<h2> error fetching API for Animal '{animal_name}' .</h2>"
     else:
-        html_content = f"<h2>The animal '{animal_name}' doesn't exist.</h2>"
+        if animals_data:  # If animals were found
+            for animal in animals_data:
+                html_content += '<li class="cards__item">\n'
+                html_content += f'<div class="card__title">{animal["name"]}</div>\n'
+                html_content += '<p class="card__text">\n'
+                html_content += f'<strong>Diet:</strong> {animal["characteristics"].get("diet", "N/A")}<br/>\n'
+                html_content += f'<strong>Location:</strong> {", ".join(animal["locations"])}<br/>\n'
+                html_content += f'<strong>Type:</strong> {animal["characteristics"].get("type", "N/A")}<br/>\n'
+                html_content += '</p></li>\n'
+        else:
+            html_content = f"<h2>The animal '{animal_name}' doesn't exist.</h2>"
 
     modified_contents = contents.replace("__REPLACE_ANIMALS_INFO__", html_content)
 
