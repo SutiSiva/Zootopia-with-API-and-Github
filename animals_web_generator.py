@@ -21,19 +21,23 @@ def generate_website(animal_name, animals_data):
         contents = file.read()
 
     #2 platzhalter string ersetzen durch gefundene Tiere /API output
-    new_html = ""
+    html_content = ""
     if animals_data:  # If animals were found
         for animal in animals_data:
-            string_to_append = f"<p>{animal['name']} - </p>\n"
-            new_html = f"{new_html}{string_to_append}"
-
+            html_content += '<li class="cards__item">\n'
+            html_content += f'<div class="card__title">{animal["name"]}</div>\n'
+            html_content += '<p class="card__text">\n'
+            html_content += f'<strong>Diet:</strong> {animal["characteristics"].get("diet", "N/A")}<br/>\n'
+            html_content += f'<strong>Location:</strong> {", ".join(animal["locations"])}<br/>\n'
+            html_content += f'<strong>Type:</strong> {animal["characteristics"].get("type", "N/A")}<br/>\n'
+            html_content += '</p></li>\n'
     else:
-        new_html = f"<h2>The animal '{animal_name}' doesn't exist.</h2>"
+        html_content = f"<h2>The animal '{animal_name}' doesn't exist.</h2>"
 
-    modified_contents = contents.replace("__REPLACE_ANIMALS_INFO__", new_html)
+    modified_contents = contents.replace("__REPLACE_ANIMALS_INFO__", html_content)
 
     #3 neuen html code in animals.html speichern
-    with open ("animals.html", "w") as output_file:
+    with open("animals.html", "w", encoding="utf-8") as output_file:
         output_file.write(modified_contents)
 # Main program
 if __name__ == "__main__":
